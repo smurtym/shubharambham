@@ -3,11 +3,7 @@ import sqlite3 as db
 
 import pandas as pd
 import numpy as np
-import datetime
 import concurrent.futures
-#from multiprocessing import  Pool
-#import dask.dataframe as dd
-#from pandas.tseries.offsets import Second
 
 SE_SIDM_TRUE_CITRA = 27
 SE_SIDM_LAHIRI = 1
@@ -22,7 +18,7 @@ SE_BIT_HINDU_RISING = 128 | 256 | 512
 
 libswe = ctypes.CDLL('./swisseph/libswe.so')
 libswe.swe_set_ephe_path(str.encode("data/"))
-libswe.swe_set_sid_mode(SE_SIDM_LAHIRI, 0, 0)
+libswe.swe_set_sid_mode(SE_SIDM_TRUE_CITRA, 0, 0)
 
 
 def wrap_function(lib, funcname, restype, argtypes):
@@ -30,7 +26,6 @@ def wrap_function(lib, funcname, restype, argtypes):
     func.restype = restype
     func.argtypes = argtypes
     return func
-
 
 swe_calc_ut_wrapper = wrap_function(libswe, 'swe_calc_ut', ctypes.c_int, [
                                     ctypes.c_double, ctypes.c_int, ctypes.c_int, ctypes.POINTER(ctypes.c_double * 6), ctypes.POINTER(ctypes.c_char * 4000)])
@@ -211,9 +206,8 @@ def check_varjyam(xmin, xmax):
 
 
 def trans_calc(x):
-    #print("aa: " + str(x))
+    #print("x: " + str(x))
     julian_date = x
-
 
     min_time = julian_date - (30.0/86400)
     max_time = julian_date + (30.0/86400)
@@ -241,7 +235,6 @@ def trans_calc(x):
     varjyam = check_varjyam(sidereal_moon_min, sidereal_moon_max)
 
     return [julian_date, tropical_sun_transit, sidereal_sun_transit, star_transit, thithi_transit, varjyam]
-    #return [1, 1, 1, 1, 1, 1]
 
 def calc_year(y):
     s = pd.date_range(start=str(y) + '-01-01', end=str(y+1) + '-01-01', freq='min', closed='left')
@@ -255,20 +248,16 @@ def calc_year(y):
     df[['julian_date', 'sayana_surya', 'nirayana_surya', 'nakshatra', 'thithi', 'varjya']] = pd.DataFrame(df.res.tolist(), index= df.index)
 
     return df
-    #return df[df['sayana_surya'].notnull() | df['nirayana_surya'].notnull() | df['nakshatra'].notnull() |
-    #             df['thithi'].notnull() | df['varjya'].notnull()][['julian_date', 'sayana_surya', 'nirayana_surya', 'nakshatra', 'thithi', 'varjya']]
 
 if __name__ == '__main__':
 
-    years = range(1946, 2075, 1)
+    years = range(1999, 2006, 1)
 
     conn = db.connect('db/e1.db')
     for y in years:
         print(y)
 
         calc_times = calc_year(y)
-        #print(calc_times)
-                #calc_times.to_sql('calc_times', conn, if_exists='append', index = False)
 
         sayana_surya_starts = pd.DataFrame();
         sayana_surya_starts[['t', 'masa_num']] = calc_times[calc_times['sayana_surya'].notnull()][['julian_date', 'sayana_surya']]

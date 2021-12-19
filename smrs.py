@@ -119,5 +119,5 @@ if __name__ == '__main__':
         print(i['city_name'])
         df = calc_rise_set_for_city(i['lat'], i['long'], i['tz'])
         df.insert(0, 'city_id', i['city_id'])
-        print(df)
+        #print(df)
         df.to_sql('sun_moon_rise_set', conn, if_exists='append', index = False)
