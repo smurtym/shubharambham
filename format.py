@@ -96,7 +96,7 @@ def formatter(x):
     if not pd.isna(x['thithi2']): 
         thithi_details = thithi_details + ' ' + thithi_names[int(x['thithi2'])]
     if not pd.isna(x['thithi2_end']): 
-        thithi_details = thithi_details + ' ' + time_formatter(x['thithi1_end'], x['dt'], x['tz'])
+        thithi_details = thithi_details + ' ' + time_formatter(x['thithi2_end'], x['dt'], x['tz'])
 
     nakshatra_details = ''
     if not pd.isna(x['nakshatra1']): nakshatra_details = nakshatra_details + ' ' + nakshatra_names[int(x['nakshatra1'])]
@@ -107,7 +107,7 @@ def formatter(x):
     if not pd.isna(x['nakshatra2']): 
         nakshatra_details = nakshatra_details + ' ' + nakshatra_names[int(x['nakshatra2'])]
     if not pd.isna(x['nakshatra2_end']): 
-        nakshatra_details = nakshatra_details + ' ' + time_formatter(x['nakshatra1_end'], x['dt'], x['tz'])
+        nakshatra_details = nakshatra_details + ' ' + time_formatter(x['nakshatra2_end'], x['dt'], x['tz'])
 
     varjyam = ''
     if pd.isna(x['v1_start']) and pd.isna(x['v1_end']):
