@@ -17,6 +17,9 @@ SE_CALC_SET = 2
 SE_BIT_HINDU_RISING = 128 | 256 | 512
 
 libswe = ctypes.CDLL('./swisseph/libswe.so')
+# Get this here
+# https://www.astro.com/ftp/swisseph/ephe/semo_18.se1
+# https://www.astro.com/ftp/swisseph/ephe/sepl_18.se1
 libswe.swe_set_ephe_path(str.encode("data/"))
 libswe.swe_set_sid_mode(SE_SIDM_TRUE_CITRA, 0, 0)
 
@@ -51,6 +54,12 @@ def get_sun_eph_sid(j_date):
     #iflag = SEFLG_SWIEPH | SEFLG_NONUT;
     i = swe_calc_ut_wrapper(j_date, 0, iflag, result, err)
 
+    err_msg = ctypes.cast(err,ctypes.c_char_p).value
+
+    if (err_msg):
+        print(err_msg)
+        exit(1)
+        
     return result[0]
 
 
@@ -237,7 +246,7 @@ def trans_calc(x):
     return [julian_date, tropical_sun_transit, sidereal_sun_transit, star_transit, thithi_transit, varjyam]
 
 def calc_year(y):
-    s = pd.date_range(start=str(y) + '-01-01', end=str(y+1) + '-01-01', freq='min', closed='left')
+    s = pd.date_range(start=str(y) + '-01-01', end=str(y+1) + '-01-01', freq='min', inclusive='left')
     df = pd.DataFrame(index=s)
 
     df['dt'] = df.index.to_julian_date()
