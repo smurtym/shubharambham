@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu&display=swap');
+
+.ui-widget {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 36px;
+
+}
+
+.ui-button {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 36px;
+}
+
+.ui-selectmenu-menu .ui-menu .ui-selectmenu-optgroup {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    color: darkmagenta;
+}
+
+table {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    width: 800px;
+    border: 1px solid #e0cfc2;
+    font-size: 36px;
+    background-color: #f4f0ec;
+}
+
+td,
+td {
+    border: 1px solid #e0cfc2
+}
