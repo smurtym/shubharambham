@@ -71,16 +71,16 @@ CREDENTIALS = (AWS_KEY_ID = 'xxxxxxx' AWS_SECRET_KEY = 'xxxxxxx'  )
  create or replace table eph as 
  select jd, 
       jd_to_date(jd) dt,
-      sun, sun_before_30s, lead(sun) over (order by jd) sun_after_30s,
-      moon, moon_before_30s, lead(moon) over (order by jd) moon_after_30s,
-      mars, mars_before_30s, lead(mars) over (order by jd) mars_after_30s,
-      mercury, mercury_before_30s, lead(mercury) over (order by jd) mercury_after_30s,
-      jupiter, jupiter_before_30s, lead(jupiter) over (order by jd) jupiter_after_30s,
-      venus, venus_before_30s, lead(venus) over (order by jd) venus_after_30s,
-      saturn, saturn_before_30s, lead(saturn) over (order by jd) saturn_after_30s,
-      true_node, true_node_before_30s, lead(true_node) over (order by jd) true_node_after_30s,
-      mean_node, mean_node_before_30s, lead(mean_node) over (order by jd) mean_node_after_30s,
+      sun, sun_before_30s, lead(sun_before_30s) over (order by jd) sun_after_30s,
+      moon, moon_before_30s, lead(moon_before_30s) over (order by jd) moon_after_30s,
+      mars, mars_before_30s, lead(mars_before_30s) over (order by jd) mars_after_30s,
+      mercury, mercury_before_30s, lead(mercury_before_30s) over (order by jd) mercury_after_30s,
+      jupiter, jupiter_before_30s, lead(jupiter_before_30s) over (order by jd) jupiter_after_30s,
+      venus, venus_before_30s, lead(venus_before_30s) over (order by jd) venus_after_30s,
+      saturn, saturn_before_30s, lead(saturn_before_30s) over (order by jd) saturn_after_30s,
+      true_node, true_node_before_30s, lead(true_node_before_30s) over (order by jd) true_node_after_30s,
+      mean_node, mean_node_before_30s, lead(mean_node_before_30s) over (order by jd) mean_node_after_30s,
       true_chitra, true_lahiri, true_pushya, true_revati, galcent_mula_wilhelm
       from eph_raw ;
       
- 
+ select * from eph order by dt limit 10 ;
