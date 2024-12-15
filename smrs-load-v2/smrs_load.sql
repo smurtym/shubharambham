@@ -32,6 +32,41 @@ set
     is_active = true
     where city_id = 5277;
 
+update city_v2
+set 
+    city_name = 'Eluru',
+    country = 'India',
+    state = 'Andhra Pradesh',
+    lat = 16.71,
+    long = 81.11,
+    tz = 'Asia/Kolkata',
+    is_active = true
+    where city_id = 8612;
+
+update city_v2
+set 
+    city_name = 'George Town',
+    country = 'Malaysia',
+    state = 'Penang',
+    lat = 5.41,
+    long = 100.32,
+    tz = 'Asia/Kuala_Lumpur',
+    is_active = true
+    where city_id = 7123;
+
+update city_v2
+set 
+    city_name = 'Kuala Lumpur',
+    country = 'Malaysia',
+    state = 'Kuala Lumpur',
+    lat = 3.16,
+    long = 101.69,
+    tz = 'Asia/Kuala_Lumpur',
+    is_active = true
+    where city_id = 2325;
+
+select * from cities;
+
 select * from city_v2 where city_id = 5277;
 
 
@@ -54,6 +89,7 @@ create or replace stage smrs_stage;
 
 -- Copy data from local file to stage
 put file:///astro/smrs_load_v2/data/5277.txt.gz @smrs_stage;
+put file:///astro/smrs_load_v2/data/7123.txt.gz @smrs_stage;
 
 select 
  t.$1 city_id,

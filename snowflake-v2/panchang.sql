@@ -159,10 +159,12 @@ order by dt;
 
 select name from year_names where id = 38;
 
-select dt, 
+select listagg('"' || dt || '" : "' || 
+DAYOFMONTH(dt) || '</br>' ||
 'సూ.ఉ. ' || format_time(dt, sun_rise) || ' సూ.అ. ' || format_time(dt, sun_set) || 
-' చం.ఉ. ' || coalesce(format_time(dt, moon_rise), 'అవదు') || ' చం.అ. ' || coalesce(format_time(dt, moon_set), 'అవదు') || 
-' ' || yn.name || ' ' || an.name || ' ' || rn.name || 
+' చం.ఉ. ' || coalesce(format_time(dt, moon_rise), 'అవదు') || ' చం.అ. ' || coalesce(format_time(dt, moon_set), 'అవదు') ||
+'</br>' ||
+yn.name || ' ' || an.name || ' ' || rn.name || 
 ' ' || mn.name || ' ' || tn1.paksha || ' ' || tn1.name || ' ' ||
 case
         when thithi_array[0]:thithi is null then 'పూర్తి'
@@ -186,7 +188,7 @@ case
             ' ' || format_time(dt, nakshatra_array[1]:end::timestamp)
 end || ' ' ||
 'వర్జ్యం ' || format_varjya(dt,varjya_array) || ' ' || 
-'దు. ' || format_durmuhurtham(dt, durmuhurtham) panchang
+'దు. ' || format_durmuhurtham(dt, durmuhurtham) || '"', ',\n') within group (order by dt) 
   from panchang_hyd_2025 p
 inner join year_names yn on yn.id = samvatsara
 inner join ayana_names an on an.id = ayana

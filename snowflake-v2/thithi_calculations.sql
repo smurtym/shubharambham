@@ -33,8 +33,8 @@ from eph e
 join table(generate_start_degrees(12)) masa
 on 
     is_between(masa.start_degrees, 
-                e.sun_before_30s - e.true_lahiri,
-                e.sun_after_30s - e.true_lahiri
+                e.sun_before_30s - e.true_chitra,
+                e.sun_after_30s - e.true_chitra
                 )
 order by e.dt;
 
