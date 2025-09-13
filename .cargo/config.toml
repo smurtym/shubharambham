@@ -1,0 +1,53 @@
+
+#############################
+## Section 1: Aliases
+#############################
+# Aliases that help with building
+# Sample runs:
+# To build on host
+# cargo build-host
+# To build for wasm
+# cargo build-wasm
+[alias]
+build-host = ["build", "-p", "panchang-bin"] # Host 
+run-host = ["run", "-p", "panchang-bin"] # Host 
+build-wasm = ["build", "-p", "panchang-wasm", "--target", "wasm32-unknown-emscripten", "--release"]
+#############################
+
+
+#############################
+## Section 2: Settings for building for wasm
+#############################
+# Settings for building for wasm
+[target.wasm32-unknown-emscripten]
+linker = "emcc" # Default, we can remove it
+rustflags = [
+
+    "-C", "link-arg=--no-entry",
+    "-C", "link-arg=-sALLOW_MEMORY_GROWTH=1",
+    "-C", "link-arg=-sFORCE_FILESYSTEM=1",
+
+    # Export Rust entrypoints
+    #"-C", "link-arg=-sEXPORTED_FUNCTIONS=['_set_ephe_path','_rise_set', '_calculate_panchang_data_export', '_malloc','_free', 'cwrap']",
+    "-C", "link-arg=-sEXPORTED_FUNCTIONS=['_panchang_data', '_malloc','_free']",
+
+    # Exported runtime methods: 'UTF8ToString'
+    "-C", "link-arg=-sEXPORTED_RUNTIME_METHODS=['UTF8ToString', 'cwrap']",
+
+    "-C", "link-arg=-sMODULARIZE",
+    "-C", "link-arg=-sEXPORT_ES6=1",
+    "-C", "link-arg=-sEXPORT_NAME=panchang",
+
+    # Preload ephemeris folder to /data inside the virtual FS
+    "-C", "link-arg=--preload-file",
+    "-C", "link-arg=data@/data",
+
+    # Optimize output
+    "-C", "link-arg=-Oz",
+
+    # Output to a file
+    "-C", "link-arg=-o",
+    "-C", "link-arg=ui/wasm/panchang-wasm.js",
+
+]
+
