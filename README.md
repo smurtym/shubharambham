@@ -1,2 +1,1 @@
-# Cleanup Started
-# Continue cleanup in VS Code
+# Cleaned up old code, fresh slate
