@@ -1,0 +1,13 @@
+[package]
+name = "panchang-wasm"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]   # Emscripten wants a C-ABI dynamic lib
+
+[dependencies]
+panchang-core = { workspace = true }
+chrono-tz = "0.10.4"
+chrono = "0.4.41"
+serde_json = "1.0.141"

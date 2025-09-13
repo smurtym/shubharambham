@@ -1,0 +1,7 @@
+
+[workspace]
+resolver = "3"
+members = ["panchang-core", "panchang-wasm", "panchang-bin"]
+
+[workspace.dependencies]
+panchang-core = { path = "panchang-core" }

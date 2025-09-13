@@ -1,0 +1,32 @@
+{
+  "name": "panchang-ui",
+  "version": "1.0.0",
+  "description": "Panchang UI with Parcel bundler",
+  "scripts": {
+    "build": "parcel build  --target panchang_page && parcel build --target main_page"
+  },
+  "devDependencies": {
+    "parcel": "^2.10.0"
+  },
+   "targets": {
+    "default": {
+      "includeNodeModules": false,
+      "sourceMap": false,
+      "publicUrl": "./",
+      "optimize": true
+    },
+    "main_page": {
+      "source": "index.html",
+      "distDir": "dist"
+    },
+    "panchang_page": {
+      "source": "panchang.html",
+      "distDir": "dist"
+    }
+
+  },
+    "alias": {
+      "buffer": false,
+      "process": false
+    }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "panchang-ui",
+  "version": "1.0.0",
+  "description": "Panchang UI with Parcel bundler",
+  "scripts": {
+    "build": "parcel build index.html panchang.html --dist-dir dist --no-source-maps"
+  },
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "parcel": "^2.10.0",
+    "parcel-plugin-inline-source": "^1.0.0",
+    "process": "^0.11.10"
+  },
+  "targets": {
+    "default": {
+      "includeNodeModules": false,
+      "sourceMap": false,
+      "distDir": "dist",
+      "publicUrl": "./"
+    }
+  },
+  "parcel": {
+    "alias": {
+      "buffer": false,
+      "process": false
+    },
+    "plugins": [
+      "parcel-plugin-inline-source"
+    ],
+    "inline-source": {
+      "include": [
+        "*.html"
+      ],
+      "exclude": [
+        "node_modules/**"
+      ]
+    }
+  },
+  "alias": {
+      "buffer": false,
+      "process": false
+    }
+}
