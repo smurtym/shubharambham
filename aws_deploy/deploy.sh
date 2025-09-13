@@ -13,8 +13,4 @@ npm run build # This uses parcel to build the project, and outputs to dist/
 # Deploy to AWS S3
 aws s3 sync dist/ s3://$S3_BUCKET_NAME/app-v1 --delete
 
-# Invalidate CloudFront cache
-aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
-# Wait for invalidation to complete (optional)
-# aws cloudfront wait invalidation-completed --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --id <invalidation-id>
-echo "Deployment completed successfully."
+# Invalidate CloudFront cache if needed
