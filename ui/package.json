@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Panchang UI with Parcel bundler",
   "scripts": {
-    "build": "parcel build  --target panchang_page && parcel build --target main_page"
+    "build": "rm -rf .parcel-cache dist/ && parcel build  --target panchang_page && parcel build --target main_page"
   },
   "devDependencies": {
     "parcel": "^2.10.0"

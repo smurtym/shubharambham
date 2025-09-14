@@ -2,6 +2,8 @@ import { cities } from './city_data.js';
 import { get_data } from './data.js';
 import { decode_city_id } from './city_helper.js'
 
+console.log("App version: v2.0.3");
+
 //document.addEventListener('DOMContentLoaded', function () {
 let dp =   new AirDatepicker('#datepicker', {
         inline: true,
@@ -62,36 +64,55 @@ class RenderQueue {
 const renderQueue = new RenderQueue();
 
 // Swipe functionality for mobile devices
+// const table = document.getElementById('panchangam');
+// let startX = 0;
+// let endX = 0;
+// table.addEventListener('touchstart', function(e) {
+//   startX = e.touches[0].clientX;
+// });
+// table.addEventListener('touchmove', function(e) {
+//   endX = e.touches[0].clientX;
+// });
+// table.addEventListener('touchend', function() {
+//   const diffX = endX - startX;
+//   if (Math.abs(diffX) > 100) { // threshold for swipe
+//     if (diffX > 0) {
+//     //   console.log('Swiped Right');
+//       let selectedDate = new Date(dp.selectedDates[0]);
+//       selectedDate.setDate(selectedDate.getDate() - 1);
+//       dp.setFocusDate(selectedDate);
+//     //   console.log(selectedDate);
+//       dp.selectDate(selectedDate, {silent: false});
+//     } else {
+//     //   console.log('Swiped Left');
+//       let selectedDate = new Date(dp.selectedDates[0]);
+//       selectedDate.setDate(selectedDate.getDate() + 1);
+//       dp.setFocusDate(selectedDate);
+//     //   console.log(selectedDate);
+//       dp.selectDate(selectedDate, {silent: false});
+//     }
+//   }
+// });
+
+// Rewrite using hammer.js
 const table = document.getElementById('panchangam');
-let startX = 0;
-let endX = 0;
-table.addEventListener('touchstart', function(e) {
-  startX = e.touches[0].clientX;
-});
-table.addEventListener('touchmove', function(e) {
-  endX = e.touches[0].clientX;
-});
-table.addEventListener('touchend', function() {
-  const diffX = endX - startX;
-  if (Math.abs(diffX) > 100) { // threshold for swipe
-    if (diffX > 0) {
-    //   console.log('Swiped Right');
-      let selectedDate = new Date(dp.selectedDates[0]);
-      selectedDate.setDate(selectedDate.getDate() - 1);
-      dp.setFocusDate(selectedDate);
-    //   console.log(selectedDate);
-      dp.selectDate(selectedDate, {silent: false});
-    } else {
-    //   console.log('Swiped Left');
-      let selectedDate = new Date(dp.selectedDates[0]);
-      selectedDate.setDate(selectedDate.getDate() + 1);
-      dp.setFocusDate(selectedDate);
-    //   console.log(selectedDate);
-      dp.selectDate(selectedDate, {silent: false});
-    }
-  }
+const hammer = new Hammer(table);
+
+hammer.on('swipeleft', function() {
+    // console.log('Swiped Left, detected by hammer.js');
+    let selectedDate = new Date(dp.selectedDates[0]);
+    selectedDate.setDate(selectedDate.getDate() + 1);
+    dp.setFocusDate(selectedDate);
+    dp.selectDate(selectedDate, {silent: false});
 });
 
+hammer.on('swiperight', function() {
+    // console.log('Swiped Right, detected by hammer.js');
+    let selectedDate = new Date(dp.selectedDates[0]);
+    selectedDate.setDate(selectedDate.getDate() - 1);
+    dp.setFocusDate(selectedDate);
+    dp.selectDate(selectedDate, {silent: false});
+});
 
 //Function that will be called when date is selected
 async function onSelectTrigger({date, formattedDate, datepicker}) {

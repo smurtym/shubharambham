@@ -11,6 +11,6 @@ npm install
 npm run build # This uses parcel to build the project, and outputs to dist/
 
 # Deploy to AWS S3
-aws s3 sync dist/ s3://$S3_BUCKET_NAME/app-v1 --delete
+aws s3 sync dist/ $S3_PATH --delete
 
 # Invalidate CloudFront cache if needed
