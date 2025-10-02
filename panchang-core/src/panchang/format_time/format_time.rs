@@ -13,12 +13,7 @@ use auto_bench_fct::auto_bench_fct;
 #[auto_bench_fct]
 pub fn format_time(date: DateTime<Tz>, jd: f64) ->String {
 
-    let dt2 = DateTime::from_timestamp(
-                ((jd - 2440587.5) * 86400.0).round() as i64, 
-                0
-            )
-        .unwrap()
-        .with_timezone(&date.timezone());
+    let dt2 = jd_to_datetime(jd, date.timezone());
 
     // round to nearest minute based on seconds
     let dt2 = if dt2.second() >= 30 {
@@ -34,4 +29,16 @@ pub fn format_time(date: DateTime<Tz>, jd: f64) ->String {
            )
 
 }
+
+// Utility function to convert to DateTime<Tz> from Julian Day
+pub fn jd_to_datetime(jd: f64, tz: Tz) -> DateTime<Tz> {
+    let timestamp = ((jd - 2440587.5) * 86400.0).round() as i64;
+    DateTime::from_timestamp(timestamp, 0).unwrap().with_timezone(&tz)
+}
+
+// Utility function to convert to Julian Day from DateTime<Tz>
+pub fn datetime_to_jd(date: DateTime<Tz>) -> f64 {
+    (date.timestamp() as f64) / 86400.0 + 2440587.5
+}
+
 
