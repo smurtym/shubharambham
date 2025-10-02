@@ -19,7 +19,7 @@ fn main() {
 
     // Call the main1 function from the util module
     //panchang_core::main1();
-    let eclipse_data = calc_eclipse(2026, lat, lon, tz);
+    let eclipse_data = calc_eclipse(2023, lat, lon, tz);
     let eclipse_json = serde_json::to_string_pretty(&eclipse_data)
         .unwrap();
     println!("{}", eclipse_json);

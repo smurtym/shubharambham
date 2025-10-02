@@ -4,43 +4,15 @@
 // Use Location from crate::panchang::output_structure::Location;
 use crate::panchang::output_structure::Location;
 
-// Enum to define Solar or Lunar Eclipse
-#[derive(Debug)]
-#[derive(serde::Serialize)]
-#[serde(rename_all = "camelCase")]
-pub enum EclipseType {
-    Solar,
-    Lunar,
-}
-
-// Enum to define Eclispe Phases
-#[derive(Debug)]
-#[derive(serde::Serialize)]
-#[serde(rename_all = "camelCase")]
-pub enum EclipsePhase {
-    Partial,
-    Total,
-    Annular,
-    TotalAnnular,
-}
-
-// Eclispe node Rahu or Ketu
-#[derive(Debug)]
-#[derive(serde::Serialize)]
-#[serde(rename_all = "camelCase")]
-pub enum EclipseNode {
-    Rahu,
-    Ketu,
-}
-
 // Structure to hold Eclipse details
 #[derive(Debug)]
 #[derive(serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct EclipseDetails {
-    pub eclipse_type: EclipseType,
-    pub phase: EclipsePhase,
-    pub node: EclipseNode,
+    pub is_solar: bool,
+    pub is_total: bool,
+    pub is_annular: bool,
+    pub is_rahu: bool,
     pub date: String, // YYYY-MM-DD format
     pub location: Location,
     pub week_day: i32, // 1=Sunday, 2=Monday, ..., 7=Saturday
