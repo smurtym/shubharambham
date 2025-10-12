@@ -1,7 +1,7 @@
 use chrono::NaiveDate;
 use chrono_tz::Tz;
 
-use panchang_core::eclipse::calc_eclipse;
+use panchang_core::eclipse::calculate_eclipse;
 
 fn main() {
     let date = "2026-04-17";
@@ -19,7 +19,7 @@ fn main() {
 
     // Call the main1 function from the util module
     //panchang_core::main1();
-    let eclipse_data = calc_eclipse(2023, lat, lon, tz);
+    let eclipse_data = calculate_eclipse(2026, lat, lon, tz);
     let eclipse_json = serde_json::to_string_pretty(&eclipse_data)
         .unwrap();
     println!("{}", eclipse_json);

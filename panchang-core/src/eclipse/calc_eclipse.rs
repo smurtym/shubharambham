@@ -7,7 +7,7 @@ use crate::panchang::format_time::*;
 use crate::panchang::output_structure::Location;
 use crate::swe_wrapper::*;
 
-pub fn calc_eclipse(year: i32, lat: f64, lon: f64, timezone: Tz) -> Vec<EclipseDetails> {
+pub fn calculate_eclipse(year: i32, lat: f64, lon: f64, timezone: Tz) -> Vec<EclipseDetails> {
 
     let mut eclipses: Vec<EclipseDetails> = Vec::new();
 
@@ -47,11 +47,12 @@ pub fn calc_eclipse(year: i32, lat: f64, lon: f64, timezone: Tz) -> Vec<EclipseD
     loop {
         let eclipse_raw = solar_eclipse_when_loc(search_from_jd, lat, lon);
 
-        println!("Eclipse Raw Data: {:?}", eclipse_raw);
-
         if eclipse_raw.start_time_jd >= next_year_start_jd {
             break;
         }
+
+        //println!("Eclipse Raw Data: {:?}", eclipse_raw);
+
         // Update search_from_jd to just after the end of this eclipse to find next eclipse
         search_from_jd = eclipse_raw.max_time_jd + 1.0;
 
@@ -78,7 +79,7 @@ pub fn calc_eclipse(year: i32, lat: f64, lon: f64, timezone: Tz) -> Vec<EclipseD
             _ => {}
         }
 
-        println!("Eclipse Raw Data: {:?}", eclipse_raw);
+        //println!("Eclipse Raw Data: {:?}", eclipse_raw);
         
         let eclipse = format_eclipse(eclipse_raw, lat, lon, timezone);
         eclipses.push(eclipse);

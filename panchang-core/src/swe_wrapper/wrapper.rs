@@ -325,9 +325,9 @@ pub fn lunar_eclipse_when_loc(tjd_start: f64, lat: f64, lon: f64)
     // tret[8] - time of moonrise between begin and end of eclipse (if any)
     // tret[9] - time of moonset between begin and end of eclipse (if any)
 
-    let start_time_jd = tret[2] as f64;
-    let max_time_jd = tret[0] as f64;
-    let end_time_jd = tret[3] as f64;
+    let start_time_jd = tret[2];
+    let max_time_jd = tret[0];
+    let end_time_jd = tret[3];
 
     let is_total = (eclipse_type & SE_ECL_TOTAL) != 0;
     let is_penumbral = (eclipse_type & SE_ECL_PENUMBRAL) != 0;
@@ -335,13 +335,13 @@ pub fn lunar_eclipse_when_loc(tjd_start: f64, lat: f64, lon: f64)
     let is_start_visible = (eclipse_type & SE_ECL_PARTBEG_VISIBLE) != 0;
     let is_end_visible = (eclipse_type & SE_ECL_PARTEND_VISIBLE) != 0;
 
-    let rise_time_jd: Option<f64> = match is_start_visible {
-        true => None,
-        false => Some(tret[8]),
+    let (rise_time_jd, start_time_jd): (Option<f64>, f64) = match is_start_visible {
+        true => (None, start_time_jd),
+        false => (Some(tret[8]), tret[8]),
     };
-    let set_time_jd: Option<f64> = match is_end_visible {
-        true => None,
-        false => Some(tret[9]),
+    let (set_time_jd, end_time_jd): (Option<f64>, f64) = match is_end_visible {
+        true => (None, end_time_jd),
+        false => (Some(tret[9]), tret[9]),
     };
 
     RawEclipseData { 
