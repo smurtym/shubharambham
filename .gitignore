@@ -7,5 +7,5 @@ ui/dist/
 target/
 
 # Ignore dependency directories
-pachang-core/swisseph/*
-!pachang-core/swisseph/how_to_get_swisseph.txt
+panchang-core/swisseph/*
+!panchang-core/swisseph/how_to_get_swisseph.txt
