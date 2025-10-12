@@ -11,7 +11,7 @@ use crate::panchang::output_structure::Location;
 pub struct EclipseDetails {
     pub is_solar: bool,
     pub is_total: bool,
-    pub is_annular: bool,
+    pub is_annular: Option<bool>, // Only for solar eclipses
     pub is_rahu: bool,
     pub date: String, // YYYY-MM-DD format
     pub location: Location,

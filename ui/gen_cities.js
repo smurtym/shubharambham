@@ -1,6 +1,7 @@
 import {encode_city_id, decode_city_id, timezones} from './city_helper.js';
 
 const new_cities = [
+    "Kozhym (Russia),6,65.7,59.52,Europe/Moscow",
 "శాక్రమెంటో (కాలిఫోర్నియా),5,38.58,-121.47,America/Los_Angeles",
 "శాన్ డియాగో (కాలిఫోర్నియా),5,32.76,-117.15,America/Los_Angeles",
 "పిట్స్‌బర్గ్ (పెన్సెల్‌వేనియా),5,40.44,-80,America/New_York",

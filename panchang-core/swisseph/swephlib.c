@@ -1809,139 +1809,139 @@ static int calc_nutation_iau1980(double J, double *nutlo)
  * - http://www.iau-sofa.rl.ac.uk/2005_0901/Downloads.html
  */
 
-// #include "swenut2000a.h"
-// static int calc_nutation_iau2000ab(double J, double *nutlo) 
-// {
-//   int i, j, k, inls;
-//   double M, SM, F, D, OM;
-//   double AL, ALSU, AF, AD, AOM, APA;
-//   double ALME, ALVE, ALEA, ALMA, ALJU, ALSA, ALUR, ALNE;
-//   double darg, sinarg, cosarg;
-//   double dpsi = 0, deps = 0;
-//   double T = (J - J2000 ) / 36525.0;
-//   int nut_model = swed.astro_models[SE_MODEL_NUT];
-//   if (nut_model == 0) nut_model = SEMOD_NUT_DEFAULT;
-//   /* luni-solar nutation */
-//   /* Fundamental arguments, Simon & al. (1994) */
-//   /* Mean anomaly of the Moon. */
-//   M  = swe_degnorm(( 485868.249036 +
-// 	      T*( 1717915923.2178 +
-// 	      T*(         31.8792 +
-// 	      T*(          0.051635 +
-// 	      T*(        - 0.00024470 ))))) / 3600.0) * DEGTORAD;
-//   /* Mean anomaly of the Sun */
-//   SM = swe_degnorm((1287104.79305 +
-// 	      T*(  129596581.0481 +
-// 	      T*(        - 0.5532 +
-// 	      T*(          0.000136 +
-// 	      T*(        - 0.00001149 ))))) / 3600.0) * DEGTORAD;
-//   /* Mean argument of the latitude of the Moon. */
-//   F   = swe_degnorm(( 335779.526232 +
-// 	      T*( 1739527262.8478 +
-// 	      T*(       - 12.7512 +
-// 	      T*(       -  0.001037 +
-// 	      T*(          0.00000417 ))))) / 3600.0) * DEGTORAD;
-//   /* Mean elongation of the Moon from the Sun. */
-//   D   = swe_degnorm((1072260.70369 +
-// 	      T*( 1602961601.2090 +
-// 	      T*(        - 6.3706 +
-// 	      T*(          0.006593 +
-// 	      T*(        - 0.00003169 ))))) / 3600.0) * DEGTORAD;
-//   /* Mean longitude of the ascending node of the Moon. */
-//   OM  = swe_degnorm(( 450160.398036 +
-// 	      T*(  - 6962890.5431 +
-// 	      T*(          7.4722 +
-// 	      T*(          0.007702 +
-// 	      T*(        - 0.00005939 ))))) / 3600.0) * DEGTORAD;
-//   /* luni-solar nutation series, in reverse order, starting with small terms */
-//   if (nut_model == SEMOD_NUT_IAU_2000B)
-//     inls = NLS_2000B;
-//   else
-//     inls = NLS;
-//   for (i = inls - 1; i >= 0; i--) {
-//     j = i * 5;
-//     darg = swe_radnorm((double) nls[j + 0] * M  +
-// 		       (double) nls[j + 1] * SM +
-// 		       (double) nls[j + 2] * F   +
-// 		       (double) nls[j + 3] * D   +
-// 		       (double) nls[j + 4] * OM);
-//     sinarg = sin(darg);
-//     cosarg = cos(darg);
-//     k = i * 6;
-//     dpsi += (cls[k+0] + cls[k+1] * T) * sinarg + cls[k+2] * cosarg;
-//     deps += (cls[k+3] + cls[k+4] * T) * cosarg + cls[k+5] * sinarg;
-//   }
-//   nutlo[0] = dpsi * O1MAS2DEG;
-//   nutlo[1] = deps * O1MAS2DEG;
-//   if (nut_model == SEMOD_NUT_IAU_2000A) {
-//     /* planetary nutation 
-//      * note: The MHB2000 code computes the luni-solar and planetary nutation
-//      * in different routines, using slightly different Delaunay
-//      * arguments in the two cases.  This behaviour is faithfully
-//      * reproduced here.  Use of the Simon et al. expressions for both
-//      * cases leads to negligible changes, well below 0.1 microarcsecond.*/
-//     /* Mean anomaly of the Moon.*/
-//     AL = swe_radnorm(2.35555598 + 8328.6914269554 * T);
-//     /* Mean anomaly of the Sun.*/
-//     ALSU = swe_radnorm(6.24006013 + 628.301955 * T);
-//     /* Mean argument of the latitude of the Moon. */
-//     AF = swe_radnorm(1.627905234 + 8433.466158131 * T);
-//     /* Mean elongation of the Moon from the Sun. */
-//     AD = swe_radnorm(5.198466741 + 7771.3771468121 * T);
-//     /* Mean longitude of the ascending node of the Moon. */
-//     AOM = swe_radnorm(2.18243920 - 33.757045 * T);
-//     /* Planetary longitudes, Mercury through Neptune (Souchay et al. 1999). */
-//     ALME = swe_radnorm(4.402608842 + 2608.7903141574 * T);
-//     ALVE = swe_radnorm(3.176146697 + 1021.3285546211 * T);
-//     ALEA = swe_radnorm(1.753470314 +  628.3075849991 * T);
-//     ALMA = swe_radnorm(6.203480913 +  334.0612426700 * T);
-//     ALJU = swe_radnorm(0.599546497 +   52.9690962641 * T);
-//     ALSA = swe_radnorm(0.874016757 +   21.3299104960 * T);
-//     ALUR = swe_radnorm(5.481293871 +    7.4781598567 * T);
-//     ALNE = swe_radnorm(5.321159000 +    3.8127774000 * T);
-//     /* General accumulated precession in longitude. */
-//     APA = (0.02438175 + 0.00000538691 * T) * T;
-//     /* planetary nutation series (in reverse order).*/
-//     dpsi = 0;
-//     deps = 0;
-//     for (i = NPL - 1; i >= 0; i--) {
-//       j = i * 14;
-//       darg = swe_radnorm((double) npl[j + 0] * AL   +
-// 	  (double) npl[j + 1] * ALSU +
-// 	  (double) npl[j + 2] * AF   +
-// 	  (double) npl[j + 3] * AD   +
-// 	  (double) npl[j + 4] * AOM  +
-// 	  (double) npl[j + 5] * ALME +
-// 	  (double) npl[j + 6] * ALVE +
-// 	  (double) npl[j + 7] * ALEA +
-// 	  (double) npl[j + 8] * ALMA +
-// 	  (double) npl[j + 9] * ALJU +
-// 	  (double) npl[j +10] * ALSA +
-// 	  (double) npl[j +11] * ALUR +
-// 	  (double) npl[j +12] * ALNE +
-// 	  (double) npl[j +13] * APA);
-//       k = i * 4;
-//       sinarg = sin(darg);
-//       cosarg = cos(darg);
-//       dpsi += (double) icpl[k+0] * sinarg + (double) icpl[k+1] * cosarg;
-//       deps += (double) icpl[k+2] * sinarg + (double) icpl[k+3] * cosarg;
-//     }
-//     nutlo[0] += dpsi * O1MAS2DEG;
-//     nutlo[1] += deps * O1MAS2DEG;
-// #if 1
-//     /* changes required by adoption of P03 precession 
-//      * according to Capitaine et al. A & A 412, 366 (2005) = IAU 2006 */
-//     dpsi = -8.1 * sin(OM) - 0.6 * sin(2 * F - 2 * D + 2 * OM);
-//     dpsi += T * (47.8 * sin(OM) + 3.7 * sin(2 * F - 2 * D + 2 * OM) + 0.6 * sin(2 * F + 2 * OM) - 0.6 * sin(2 * OM)); 
-//     deps = T * (-25.6 * cos(OM) - 1.6 * cos(2 * F - 2 * D + 2 * OM));
-//     nutlo[0] += dpsi / (3600.0 * 1000000.0);
-//     nutlo[1] += deps / (3600.0 * 1000000.0);
-// #endif
-//   }
-//   nutlo[0] *= DEGTORAD;
-//   nutlo[1] *= DEGTORAD;
-//   return 0;
-// }
+#include "swenut2000a.h"
+static int calc_nutation_iau2000ab(double J, double *nutlo) 
+{
+  int i, j, k, inls;
+  double M, SM, F, D, OM;
+  double AL, ALSU, AF, AD, AOM, APA;
+  double ALME, ALVE, ALEA, ALMA, ALJU, ALSA, ALUR, ALNE;
+  double darg, sinarg, cosarg;
+  double dpsi = 0, deps = 0;
+  double T = (J - J2000 ) / 36525.0;
+  int nut_model = swed.astro_models[SE_MODEL_NUT];
+  if (nut_model == 0) nut_model = SEMOD_NUT_DEFAULT;
+  /* luni-solar nutation */
+  /* Fundamental arguments, Simon & al. (1994) */
+  /* Mean anomaly of the Moon. */
+  M  = swe_degnorm(( 485868.249036 +
+	      T*( 1717915923.2178 +
+	      T*(         31.8792 +
+	      T*(          0.051635 +
+	      T*(        - 0.00024470 ))))) / 3600.0) * DEGTORAD;
+  /* Mean anomaly of the Sun */
+  SM = swe_degnorm((1287104.79305 +
+	      T*(  129596581.0481 +
+	      T*(        - 0.5532 +
+	      T*(          0.000136 +
+	      T*(        - 0.00001149 ))))) / 3600.0) * DEGTORAD;
+  /* Mean argument of the latitude of the Moon. */
+  F   = swe_degnorm(( 335779.526232 +
+	      T*( 1739527262.8478 +
+	      T*(       - 12.7512 +
+	      T*(       -  0.001037 +
+	      T*(          0.00000417 ))))) / 3600.0) * DEGTORAD;
+  /* Mean elongation of the Moon from the Sun. */
+  D   = swe_degnorm((1072260.70369 +
+	      T*( 1602961601.2090 +
+	      T*(        - 6.3706 +
+	      T*(          0.006593 +
+	      T*(        - 0.00003169 ))))) / 3600.0) * DEGTORAD;
+  /* Mean longitude of the ascending node of the Moon. */
+  OM  = swe_degnorm(( 450160.398036 +
+	      T*(  - 6962890.5431 +
+	      T*(          7.4722 +
+	      T*(          0.007702 +
+	      T*(        - 0.00005939 ))))) / 3600.0) * DEGTORAD;
+  /* luni-solar nutation series, in reverse order, starting with small terms */
+  if (nut_model == SEMOD_NUT_IAU_2000B)
+    inls = NLS_2000B;
+  else
+    inls = NLS;
+  for (i = inls - 1; i >= 0; i--) {
+    j = i * 5;
+    darg = swe_radnorm((double) nls[j + 0] * M  +
+		       (double) nls[j + 1] * SM +
+		       (double) nls[j + 2] * F   +
+		       (double) nls[j + 3] * D   +
+		       (double) nls[j + 4] * OM);
+    sinarg = sin(darg);
+    cosarg = cos(darg);
+    k = i * 6;
+    dpsi += (cls[k+0] + cls[k+1] * T) * sinarg + cls[k+2] * cosarg;
+    deps += (cls[k+3] + cls[k+4] * T) * cosarg + cls[k+5] * sinarg;
+  }
+  nutlo[0] = dpsi * O1MAS2DEG;
+  nutlo[1] = deps * O1MAS2DEG;
+  if (nut_model == SEMOD_NUT_IAU_2000A) {
+    /* planetary nutation 
+     * note: The MHB2000 code computes the luni-solar and planetary nutation
+     * in different routines, using slightly different Delaunay
+     * arguments in the two cases.  This behaviour is faithfully
+     * reproduced here.  Use of the Simon et al. expressions for both
+     * cases leads to negligible changes, well below 0.1 microarcsecond.*/
+    /* Mean anomaly of the Moon.*/
+    AL = swe_radnorm(2.35555598 + 8328.6914269554 * T);
+    /* Mean anomaly of the Sun.*/
+    ALSU = swe_radnorm(6.24006013 + 628.301955 * T);
+    /* Mean argument of the latitude of the Moon. */
+    AF = swe_radnorm(1.627905234 + 8433.466158131 * T);
+    /* Mean elongation of the Moon from the Sun. */
+    AD = swe_radnorm(5.198466741 + 7771.3771468121 * T);
+    /* Mean longitude of the ascending node of the Moon. */
+    AOM = swe_radnorm(2.18243920 - 33.757045 * T);
+    /* Planetary longitudes, Mercury through Neptune (Souchay et al. 1999). */
+    ALME = swe_radnorm(4.402608842 + 2608.7903141574 * T);
+    ALVE = swe_radnorm(3.176146697 + 1021.3285546211 * T);
+    ALEA = swe_radnorm(1.753470314 +  628.3075849991 * T);
+    ALMA = swe_radnorm(6.203480913 +  334.0612426700 * T);
+    ALJU = swe_radnorm(0.599546497 +   52.9690962641 * T);
+    ALSA = swe_radnorm(0.874016757 +   21.3299104960 * T);
+    ALUR = swe_radnorm(5.481293871 +    7.4781598567 * T);
+    ALNE = swe_radnorm(5.321159000 +    3.8127774000 * T);
+    /* General accumulated precession in longitude. */
+    APA = (0.02438175 + 0.00000538691 * T) * T;
+    /* planetary nutation series (in reverse order).*/
+    dpsi = 0;
+    deps = 0;
+    for (i = NPL - 1; i >= 0; i--) {
+      j = i * 14;
+      darg = swe_radnorm((double) npl[j + 0] * AL   +
+	  (double) npl[j + 1] * ALSU +
+	  (double) npl[j + 2] * AF   +
+	  (double) npl[j + 3] * AD   +
+	  (double) npl[j + 4] * AOM  +
+	  (double) npl[j + 5] * ALME +
+	  (double) npl[j + 6] * ALVE +
+	  (double) npl[j + 7] * ALEA +
+	  (double) npl[j + 8] * ALMA +
+	  (double) npl[j + 9] * ALJU +
+	  (double) npl[j +10] * ALSA +
+	  (double) npl[j +11] * ALUR +
+	  (double) npl[j +12] * ALNE +
+	  (double) npl[j +13] * APA);
+      k = i * 4;
+      sinarg = sin(darg);
+      cosarg = cos(darg);
+      dpsi += (double) icpl[k+0] * sinarg + (double) icpl[k+1] * cosarg;
+      deps += (double) icpl[k+2] * sinarg + (double) icpl[k+3] * cosarg;
+    }
+    nutlo[0] += dpsi * O1MAS2DEG;
+    nutlo[1] += deps * O1MAS2DEG;
+#if 1
+    /* changes required by adoption of P03 precession 
+     * according to Capitaine et al. A & A 412, 366 (2005) = IAU 2006 */
+    dpsi = -8.1 * sin(OM) - 0.6 * sin(2 * F - 2 * D + 2 * OM);
+    dpsi += T * (47.8 * sin(OM) + 3.7 * sin(2 * F - 2 * D + 2 * OM) + 0.6 * sin(2 * F + 2 * OM) - 0.6 * sin(2 * OM)); 
+    deps = T * (-25.6 * cos(OM) - 1.6 * cos(2 * F - 2 * D + 2 * OM));
+    nutlo[0] += dpsi / (3600.0 * 1000000.0);
+    nutlo[1] += deps / (3600.0 * 1000000.0);
+#endif
+  }
+  nutlo[0] *= DEGTORAD;
+  nutlo[1] *= DEGTORAD;
+  return 0;
+}
 
 /* an incomplete implementation of nutation Woolard 1953 */
 static int calc_nutation_woolard(double J, double *nutlo) 
@@ -2102,9 +2102,7 @@ static int calc_nutation(double J, int32 iflag, double *nutlo)
   } else if (nut_model == SEMOD_NUT_IAU_1980 || nut_model == SEMOD_NUT_IAU_CORR_1987) {
     calc_nutation_iau1980(J, nutlo);
   } else if (nut_model == SEMOD_NUT_IAU_2000A || nut_model == SEMOD_NUT_IAU_2000B) {
-    // Should not come here, exit
-    return ERR;
-    //calc_nutation_iau2000ab(J, nutlo);
+    calc_nutation_iau2000ab(J, nutlo);
     if ((iflag & SEFLG_JPLHOR_APPROX) && jplhora_model == SEMOD_JPLHORA_2) {
       nutlo[0] += -41.7750 / 3600.0 / 1000.0 * DEGTORAD;
       nutlo[1] += -6.8192 / 3600.0 / 1000.0 * DEGTORAD;

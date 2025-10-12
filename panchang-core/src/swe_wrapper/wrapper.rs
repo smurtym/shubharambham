@@ -7,6 +7,7 @@ pub type CChar = ::std::os::raw::c_char;
 // SWE Constants in Rust
 pub const SE_SUN: Int32 = 0;
 pub const SE_MOON: Int32 = 1;
+pub const SE_TRUE_NODE: Int32 = 11;
 pub const SE_CALC_RISE: Int32 = 1;
 pub const SE_CALC_SET: Int32 = 2;
 pub const SE_BIT_HINDU_RISING: Int32 = 128 | 256 | 512;
@@ -140,6 +141,13 @@ pub fn get_tropical_sun_ephemeris(tjd_ut: f64) -> f64 {
     calc_ut(tjd_ut, ipl, iflag)
 }
 
+// Get Rahu ephemeris
+pub fn get_rahu_ephemeris(tjd_ut: f64) -> f64 {
+    let ipl = SE_TRUE_NODE;
+    let iflag = SEFLG_SWIEPH | SEFLG_SIDEREAL | SEFLG_NONUT; 
+    calc_ut(tjd_ut, ipl, iflag)
+}
+
 // Eclipse calculation related wrappers
 // pub const SE_ECL_CENTRAL: Int32 = 1;
 // pub const SE_ECL_NONCENTRAL: Int32 = 2;
@@ -152,6 +160,22 @@ pub const SE_ECL_PARTBEG_VISIBLE: Int32 = 512; /* begin of partial eclipse */
 // pub const SE_ECL_TOTBEG_VISIBLE: Int32 = 1024; /* begin of total eclipse */
 // pub const SE_ECL_TOTEND_VISIBLE: Int32 = 2048; /* end of total eclipse */
 pub const SE_ECL_PARTEND_VISIBLE: Int32 = 4096; /* end of partial eclipse */
+
+// Data structure to hold raw eclipse data
+#[derive(Debug)]
+pub struct RawEclipseData {
+    pub is_solar: bool,
+    pub is_total: bool,
+    pub is_annular: Option<bool>,
+    pub is_penumbral: Option<bool>,
+    pub start_time_jd: f64,
+    pub max_time_jd: f64,
+    pub end_time_jd: f64,
+    pub is_start_visible: bool,
+    pub is_end_visible: bool,
+    pub rise_time_jd: Option<f64>,
+    pub set_time_jd: Option<f64>,
+}
 
 // Wrapper for swe_sol_eclipse_when_loc
 unsafe extern "C" {
@@ -167,7 +191,7 @@ unsafe extern "C" {
 }
 
 pub fn solar_eclipse_when_loc(tjd_start: f64, lat: f64, lon: f64) 
-    -> (bool, bool, f64, f64, f64, bool, bool, Option<f64>, Option<f64>)
+    -> RawEclipseData
 {
     let mut geopos: [f64; 3] = [0.0; 3];
     geopos[0] = lon;
@@ -204,9 +228,9 @@ pub fn solar_eclipse_when_loc(tjd_start: f64, lat: f64, lon: f64)
     // tret[5] - time of sunrise between begin and end of eclipse (if any)
     // tret[6] - time of sunset between begin and end of eclipse (if any)
 
-    let start_time = tret[1];
-    let max_time = tret[0];
-    let end_time = tret[4];
+    let start_time_jd = tret[1];
+    let max_time_jd = tret[0];
+    let end_time_jd = tret[4];
 
     let (is_total, is_annular) = match true {
         _ if (eclipse_type & SE_ECL_TOTAL) != 0 => (true, false),
@@ -220,28 +244,30 @@ pub fn solar_eclipse_when_loc(tjd_start: f64, lat: f64, lon: f64)
     let is_start_visible = (eclipse_type & SE_ECL_PARTBEG_VISIBLE) != 0;
     let is_end_visible = (eclipse_type & SE_ECL_PARTEND_VISIBLE) != 0;
 
-    let sun_rise: Option<f64> = match is_start_visible {
+    let rise_time_jd: Option<f64> = match is_start_visible {
         true => None,
         false => Some(tret[5]),
         
     };
 
-    let sun_set: Option<f64> = match is_end_visible {
+    let set_time_jd: Option<f64> = match is_end_visible {
         true => None,
         false => Some(tret[6]),
     };
 
-    (
-        is_total,
-        is_annular,
-        start_time,
-        max_time,
-        end_time,
-        is_start_visible,
-        is_end_visible,
-        sun_rise,
-        sun_set,
-    )
+    RawEclipseData { 
+        is_solar: true, 
+        is_total, 
+        is_annular: Some(is_annular), 
+        is_penumbral: None, // Solar eclipses don't have penumbral type 
+        start_time_jd, 
+        max_time_jd, 
+        end_time_jd, 
+        is_start_visible, 
+        is_end_visible, 
+        rise_time_jd, 
+        set_time_jd 
+    }
 }
 
 unsafe extern "C" {
@@ -257,7 +283,7 @@ unsafe extern "C" {
 }
 
 pub fn lunar_eclipse_when_loc(tjd_start: f64, lat: f64, lon: f64) 
-    -> (bool, bool, f64, f64, f64, bool, bool, Option<f64>, Option<f64>)
+    -> RawEclipseData
 {
     let mut geopos: [f64; 3] = [0.0; 3];
     geopos[0] = lon;
@@ -299,9 +325,9 @@ pub fn lunar_eclipse_when_loc(tjd_start: f64, lat: f64, lon: f64)
     // tret[8] - time of moonrise between begin and end of eclipse (if any)
     // tret[9] - time of moonset between begin and end of eclipse (if any)
 
-    let start_time = tret[2];
-    let max_time = tret[0];
-    let end_time = tret[3];
+    let start_time_jd = tret[2] as f64;
+    let max_time_jd = tret[0] as f64;
+    let end_time_jd = tret[3] as f64;
 
     let is_total = (eclipse_type & SE_ECL_TOTAL) != 0;
     let is_penumbral = (eclipse_type & SE_ECL_PENUMBRAL) != 0;
@@ -309,25 +335,26 @@ pub fn lunar_eclipse_when_loc(tjd_start: f64, lat: f64, lon: f64)
     let is_start_visible = (eclipse_type & SE_ECL_PARTBEG_VISIBLE) != 0;
     let is_end_visible = (eclipse_type & SE_ECL_PARTEND_VISIBLE) != 0;
 
-    let moon_rise: Option<f64> = match is_start_visible {
+    let rise_time_jd: Option<f64> = match is_start_visible {
         true => None,
         false => Some(tret[8]),
-        
     };
-    let moon_set: Option<f64> = match is_end_visible {
+    let set_time_jd: Option<f64> = match is_end_visible {
         true => None,
         false => Some(tret[9]),
     };
 
-    (
-        is_total,
-        is_penumbral,
-        start_time,
-        max_time,
-        end_time,
-        is_start_visible,
-        is_end_visible,
-        moon_rise,
-        moon_set,
-    )
+    RawEclipseData { 
+        is_solar: false, 
+        is_total, 
+        is_annular: None, // Lunar eclipses don't have annular type 
+        is_penumbral: Some(is_penumbral), 
+        start_time_jd, 
+        max_time_jd, 
+        end_time_jd, 
+        is_start_visible, 
+        is_end_visible, 
+        rise_time_jd, 
+        set_time_jd
+    }
 }

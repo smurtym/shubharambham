@@ -1,0 +1,3 @@
+To get contents in this directory, clone swiss ephemeris
+
+git clone https://github.com/aloistr/swisseph.git

@@ -1,9 +1,10 @@
 import { cities, categories } from './city_data.js';
 
-// import { gen_cities } from './gen_cities.js';
+
 
 // Uncomment the line below to generate city_data.js from a list of cities
-// gen_cities();
+import { gen_cities } from './gen_cities.js';
+ gen_cities();
 
 // Below is code to generate city_data.js from a list of cities
 // import { encode_city_id, decode_city_id } from './city_helper.js'
