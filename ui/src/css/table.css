@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu&display=swap');
+
+/**
+* This file contains the CSS styles for the Panchangam table.
+* It defines the layout, colors, and fonts used in the Panchangam display.
+Specs:
+Font: Noto Sans Telugu 12pt
+* Layout: 250px wide table with 10px padding
+* Colors: #f0f0f0 for the table background, #333 for text
+* Borders: 1px solid #ccc for table cells
+* Responsive design: Adjusts for smaller screens
+ */
+body {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 10pt;
+}
+
+label {
+    font-family: 'Noto Sans Telugu', sans-serif;
+    font-size: 12pt;
+    color: #7c1d1d;
+}
+
+table {
+    width: 320px;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+th, td {
+    border: 1px solid #ccc;
+    text-align: left;
+}

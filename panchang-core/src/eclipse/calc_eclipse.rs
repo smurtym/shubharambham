@@ -7,7 +7,10 @@ use crate::panchang::format_time::*;
 use crate::panchang::output_structure::Location;
 use crate::swe_wrapper::*;
 
+// https://www.timeanddate.com/eclipse/in/@543241?iso=20101221 Fix this 
 pub fn calculate_eclipse(year: i32, lat: f64, lon: f64, timezone: Tz) -> Vec<EclipseDetails> {
+
+    set_ephe_path();
 
     let mut eclipses: Vec<EclipseDetails> = Vec::new();
 
@@ -117,7 +120,7 @@ pub fn format_eclipse(eclipse_raw: RawEclipseData, lat: f64, lon: f64, timezone:
         is_visible_next_day = false; 
     } else {
         // This logic is needed for lunar eclipses because the eclipse can start after midnight but still be counted as the previous day
-
+        
         // Next sunrise after eclipse start time
         let eclipse_next_sunrise_jd = rise_set(eclipse_raw.start_time_jd, SE_SUN, false, lat, lon);
         // Substract 1 day to get the date of eclipse
@@ -138,6 +141,9 @@ pub fn format_eclipse(eclipse_raw: RawEclipseData, lat: f64, lon: f64, timezone:
     }
 
     let date = eclipse_date.format("%Y-%m-%d").to_string();
+    let yyyy = eclipse_date.year();
+    let mm = eclipse_date.month() as i32;
+    let dd = eclipse_date.day() as i32;
     let location = Location { lat: lat, lon: lon };
 
     let week_day = eclipse_date.weekday().number_from_sunday() as i32;
@@ -177,6 +183,9 @@ pub fn format_eclipse(eclipse_raw: RawEclipseData, lat: f64, lon: f64, timezone:
         is_annular: eclipse_raw.is_annular,
         is_rahu,
         date,
+        yyyy,
+        mm,
+        dd,
         location,
         week_day,
         is_visible_next_day,

@@ -29,7 +29,7 @@ rustflags = [
 
     # Export Rust entrypoints
     #"-C", "link-arg=-sEXPORTED_FUNCTIONS=['_set_ephe_path','_rise_set', '_calculate_panchang_data_export', '_malloc','_free', 'cwrap']",
-    "-C", "link-arg=-sEXPORTED_FUNCTIONS=['_panchang_data', '_malloc','_free']",
+    "-C", "link-arg=-sEXPORTED_FUNCTIONS=['_panchang_data', '_eclipse_data', '_malloc','_free']",
 
     # Exported runtime methods: 'UTF8ToString'
     "-C", "link-arg=-sEXPORTED_RUNTIME_METHODS=['UTF8ToString', 'cwrap']",

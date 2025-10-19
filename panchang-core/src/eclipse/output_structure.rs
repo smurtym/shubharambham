@@ -14,6 +14,9 @@ pub struct EclipseDetails {
     pub is_annular: Option<bool>, // Only for solar eclipses
     pub is_rahu: bool,
     pub date: String, // YYYY-MM-DD format
+    pub yyyy: i32,
+    pub mm: i32,
+    pub dd: i32,
     pub location: Location,
     pub week_day: i32, // 1=Sunday, 2=Monday, ..., 7=Saturday
     pub is_visible_next_day: bool,
