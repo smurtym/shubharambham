@@ -1,8 +1,8 @@
-import { cities } from './city_data.js';
+import { cities } from '../city/data.js';
 import { get_data } from './data.js';
-import { decode_city_id } from './city_helper.js'
+import { decode_city_id } from '../city/helper.js'
 
-console.log("App version: v2.0.3");
+console.log("App version: v2.0.4");
 
 //document.addEventListener('DOMContentLoaded', function () {
 let dp =   new AirDatepicker('#datepicker', {
@@ -40,13 +40,13 @@ if (city_id && cities[city_id]) {
     cityLabel.textContent = 'నగరం/ప్రాంతం: Not specified';
 }
 
-cityLabel.innerHTML += `<br><a href="index.html">(మార్చడానికి ఇక్కడ క్లిక్ చేయండి)</a>`;
+cityLabel.innerHTML += `<br><a href="../city/index.html?page=panchang">(మార్చడానికి ఇక్కడ క్లిక్ చేయండి)</a>`;
 
 const decoded_data = decode_city_id(city_id);
 const lat = decoded_data.lat;
 const long = decoded_data.lon;
 const tz = decoded_data.tz;
-//console.log(`City ID: ${city_id}, Lat: ${lat}, Long: ${long}, TZ: ${tz}`);
+console.log(`City ID: ${city_id}, Lat: ${lat}, Long: ${long}, TZ: ${tz}`);
 
 class RenderQueue {
   constructor() {
