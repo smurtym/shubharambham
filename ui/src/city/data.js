@@ -535,7 +535,7 @@ const cities = {
 "748756038963": { "city_name": "జెడ్డా (సౌదీ అరేబియా)", "category_id": 4 } ,
 "781372066099": { "city_name": "దమ్మాం (సౌదీ అరేబియా)", "category_id": 4 } ,
 "779962830070": { "city_name": "మానామా (బహ్రెయిన్)", "category_id": 4 },
-"1044909539789": { "city_name": "Kozhym (Russia)", "category_id": 6 },
+// "1044909539789": { "city_name": "Kozhym (Russia)", "category_id": 6 },
 }
 
 export { cities, categories };

@@ -36,8 +36,10 @@ const city_id = params.get("city_id");
 const cityLabel = document.getElementById("city");
 if (city_id && cities[city_id]) {
     cityLabel.textContent = `నగరం/ప్రాంతం: ${cities[city_id].city_name}`;
+    document.title = `శుభారంభం పంచాంగం - ${cities[city_id].city_name}`;
 } else {
     cityLabel.textContent = 'నగరం/ప్రాంతం: Not specified';
+    document.title = 'శుభారంభం పంచాంగం';
 }
 
 cityLabel.innerHTML += `<br><a href="../city/index.html?page=panchang">(మార్చడానికి ఇక్కడ క్లిక్ చేయండి)</a>`;

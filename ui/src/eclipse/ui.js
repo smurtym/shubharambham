@@ -36,8 +36,10 @@ const city_id = params.get("city_id");
 const cityLabel = document.getElementById("city");
 if (city_id && cities[city_id]) {
     cityLabel.textContent = `నగరం/ప్రాంతం: ${cities[city_id].city_name}`;
+    document.title = `గ్రహణ సమయాలు - ${cities[city_id].city_name}`;
 } else {
     cityLabel.textContent = 'నగరం/ప్రాంతం: Not specified';
+    document.title = 'గ్రహణ సమయాలు';
 }
 
 cityLabel.innerHTML += `<br><a href="../city/index.html?page=eclipse">(మార్చడానికి ఇక్కడ క్లిక్ చేయండి)</a>`;
@@ -127,6 +129,27 @@ async function renderEclipse(year) {
             detailRow.appendChild(valueCell);
             nestedTable.appendChild(detailRow);
         } );
+
+        // const copyButton = document.createElement('button');
+        // copyButton.textContent = 'పంచడానికి నకలు (Copy to Share)';
+        // copyButton.addEventListener('click', async () => {
+        //     let cb_data = "🕉️ *శుభారంభం* 🕉️\n";
+        //     cb_data += "*---------------* \n";
+        //     cb_data += `*${cities[city_id].city_name}* నగరానికి గ్రహణ సమయాలు \n`;
+        //     eclipse.forEach(detail => {
+        //         cb_data += `*${detail.key.trim()}* : ${detail.value.trim()}\n`;
+        //     });
+        //     cb_data += "( _*సేకరణ*: మునుకుట్ల సత్యనారాయణ మూర్తి నిర్వహిస్తున్న https://shubharambham.com/ వెబ్‌సైట్ నుండి_ )";
+        //     await navigator.clipboard.writeText(cb_data);
+        // });
+        // const buttonRow = document.createElement('tr');
+        // const buttonCell = document.createElement('td');
+        // buttonCell.colSpan = 2; // Span across both columns
+
+        // buttonCell.appendChild(copyButton);
+        // buttonRow.appendChild(buttonCell);
+        // nestedTable.appendChild(buttonRow);
+
         row.appendChild(nestedTable);
         table.appendChild(row);
     });
