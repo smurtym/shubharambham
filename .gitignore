@@ -7,4 +7,5 @@ ui/dist/
 target/
 
 # Ignore dependency directories
-panchang-core/swisseph/
+panchang-core/swisseph/*
+!panchang-core/swisseph/.gitkeep
