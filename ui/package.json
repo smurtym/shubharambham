@@ -3,30 +3,37 @@
   "version": "1.0.0",
   "description": "Panchang UI with Parcel bundler",
   "scripts": {
-    "build": "rm -rf .parcel-cache dist/ && parcel build  --target panchang_page && parcel build --target main_page"
+    "build": "rm -rf .parcel-cache dist/ && parcel build --target city_page && parcel build --target panchang_page && parcel build --target eclipse_page"
   },
   "devDependencies": {
-    "parcel": "^2.10.0"
+    "parcel": "^2.16.0"
   },
-   "targets": {
+  "targets": {
     "default": {
       "includeNodeModules": false,
       "sourceMap": false,
       "publicUrl": "./",
+      "distDir": "dist/",
       "optimize": true
     },
-    "main_page": {
-      "source": "index.html",
-      "distDir": "dist"
+    "city_page": {
+      "source": "src/city/index.html",
+      "distDir": "dist/city",
+      "publicUrl": "./"
     },
     "panchang_page": {
-      "source": "panchang.html",
-      "distDir": "dist"
+      "source": "src/panchang/index.html",
+      "distDir": "dist/panchang",
+      "publicUrl": "./"
+    },
+    "eclipse_page": {
+      "source": "src/eclipse/index.html",
+      "distDir": "dist/eclipse",
+      "publicUrl": "./"
     }
-
   },
-    "alias": {
-      "buffer": false,
-      "process": false
-    }
+  "alias": {
+    "buffer": false,
+    "process": false
+  }
 }

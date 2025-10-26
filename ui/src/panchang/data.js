@@ -1,34 +1,6 @@
-import { samvatsara, ayana, masa, nakshatra, ritu, vara, tithi, yoga, karana, hora_lord, english_month } from './telugu_names.js';
+import { samvatsara, ayana, masa, nakshatra, ritu, vara, tithi, yoga, karana, hora_lord, english_month } from '../locale/telugu.js';
 
-import panchang from './wasm/panchang-wasm.js';
-
-var p = await panchang({
-    // locateFile: (file) => `wasm/${file}`
-    locateFile: function (path) {
-        if (path.endsWith('.wasm')) {
-          return new URL('./wasm/panchang-wasm.wasm', import.meta.url).href;
-        }
-        if (path.endsWith('.data')) {
-          return new URL('./wasm/panchang-wasm.data', import.meta.url).href;
-        }
-        return path;    
-      }
-});
-
-// console.log('Loaded panchang');
-
-export const panchang_data_exported = p.cwrap("panchang_data", "number", 
-    ["double", "double", "string", "string", "number", "number"]);
-
-function panchang_data(lat, lon, date, tz) {
-    let cap = 10240; // Max capacity of the output string, 10KB
-    let ptr = p._malloc(cap);
-    
-    panchang_data_exported(lat, lon, date, tz, ptr, cap);
-    const s = p.UTF8ToString(ptr);
-    p._free(ptr); // No leak
-    return s;
-}
+import {panchang_data} from '../wasm-wrapper/wasm-wrapper.js';
 
 async function get_data(date, lat, long, tz) {
 

@@ -5,3 +5,6 @@ ui/dist/
 
 # Ignore build output directories of rust
 target/
+
+# Ignore dependency directories
+panchang-core/swisseph/

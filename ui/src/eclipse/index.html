@@ -32,20 +32,26 @@
       font-size: 12pt;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/air-datepicker/air-datepicker.min.js"></script>
+  
+  <style>
+        @import "../css/airdate.css";
+    </style>
+    <style>
+        @import "../css/table.css";
+    </style>
 
   <script type="module">
-    import './populate_cities.js';
+    import './ui.js';
   </script>
 
 </head>
 
 <body>
-
-  <h3>శుభారంభం పంచాంగం</h3>
-  <p>నగరం/ప్రాంతం ఎంచుకోండి</p>
-
-  <div id="city-list"></div>
-
+    <label id="city"></label>
+    <div id="datepicker"></div>
+    <table id="eclipse"></table>
 </body>
 
 </html>
+

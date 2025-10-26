@@ -292,4 +292,31 @@ const hora_lord = [
     "శని"
 ];
 
-export { samvatsara, ayana, masa, nakshatra, ritu, vara, tithi, yoga, karana, english_month, hora_lord };
+const vara_1 = [
+"",
+"ఆది",
+"సోమ",
+"మంగళ",
+"బుధ",
+"గురు",
+"శుక్ర",
+"శని"
+];
+
+const rasi = [
+"",
+"మేష",
+"వృషభ",
+"మిథున",
+"కర్కాటక",
+"సింహ",
+"కన్య",
+"తుల",
+"వృశ్చిక",
+"ధనుస్సు",
+"మకర",
+"కుంభ",
+"మీన"
+]
+
+export { samvatsara, ayana, masa, nakshatra, ritu, vara, tithi, yoga, karana, english_month, hora_lord, vara_1, rasi };

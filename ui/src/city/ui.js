@@ -1,9 +1,10 @@
-import { cities, categories } from './city_data.js';
+import { cities, categories } from './data.js';
 
-// import { gen_cities } from './gen_cities.js';
+
 
 // Uncomment the line below to generate city_data.js from a list of cities
-// gen_cities();
+// import { gen_cities } from './gen_cities.js';
+//  gen_cities();
 
 // Below is code to generate city_data.js from a list of cities
 // import { encode_city_id, decode_city_id } from './city_helper.js'
@@ -17,6 +18,9 @@ import { cities, categories } from './city_data.js';
 
 
 let city_html = document.getElementById("city-list");
+
+const params = new URLSearchParams(document.location.search);
+const page = "../" + params.get("page") + "/index.html";
 
 // const categories = {
 //     "1": "తెలంగాణ",
@@ -87,7 +91,7 @@ for (let category_id in categories) {
 
         for (let city of categorized_cities[category_id]) {
             let link = document.createElement("a");
-            link.href = `./panchang.html?city_id=${city.city_id}`;
+            link.href = `${page}?city_id=${city.city_id}`;
             link.textContent = city.city_name;
             city_html.appendChild(link);
             // add new line

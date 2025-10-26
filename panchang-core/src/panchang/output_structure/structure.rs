@@ -1,5 +1,5 @@
 
-
+#[derive(Debug)]
 #[derive(serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Location {
