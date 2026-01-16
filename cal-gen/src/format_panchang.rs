@@ -142,17 +142,6 @@ const RITU: [&str; 7] = [
     "శిశిర"
 ];
 
-// const VARA: [&str; 8] = [
-//     "",
-//     "ఆది (భాను)",
-//     "సోమ (ఇందు)",
-//     "మంగళ (భౌమ)",
-//     "బుధ (సౌమ్య)",
-//     "గురు (బృహస్పతి)",
-//     "శుక్ర (భృగు)",
-//     "శని (స్థిర)"
-// ];
-
 const TITHI: [(&str, &str); 31] = [
     ("", ""),
     ("శుక్ల", "పాడ్యమి"),
@@ -187,101 +176,6 @@ const TITHI: [(&str, &str); 31] = [
     ("కృష్ణ", "అమావాస్య")
 ];
 
-// const YOGA: [&str; 28] = [
-//     "",
-//     "విష్కంభ",
-//     "ప్రీతి",
-//     "ఆయుష్మాన్",
-//     "సౌభాగ్య",
-//     "శోభన",
-//     "అతిగండ",
-//     "సుకర్మన్",
-//     "ధృతి",
-//     "శూల",
-//     "గండ",
-//     "వృద్ధి",
-//     "ధ్రువ",
-//     "వ్యాఘాత",
-//     "హర్షణ",
-//     "వజ్ర",
-//     "సిద్ధి",
-//     "వ్యతీపాత",
-//     "వరియన్",
-//     "పరిఘ",
-//     "శివ",
-//     "సిద్ధ",
-//     "సాధ్య",
-//     "శుభ",
-//     "శుక్ల",
-//     "బ్రహ్మ",
-//     "ఇంద్ర",
-//     "వైధృతి"
-// ];
-
-// const KARANA: [&str; 61] = [
-//     "",
-//     "కింస్తుఘ్న",
-//     "బవ",
-//     "బాలవ",
-//     "కౌలవ",
-//     "తైతుల",
-//     "గరిజ",
-//     "వణిజ",
-//     "విష్టి(భద్ర)",
-//     "బవ",
-//     "బాలవ",
-//     "కౌలవ",
-//     "తైతుల",
-//     "గరిజ",
-//     "వణిజ",
-//     "విష్టి(భద్ర)",
-//     "బవ",
-//     "బాలవ",
-//     "కౌలవ",
-//     "తైతుల",
-//     "గరిజ",
-//     "వణిజ",
-//     "విష్టి(భద్ర)",
-//     "బవ",
-//     "బాలవ",
-//     "కౌలవ",
-//     "తైతుల",
-//     "గరిజ",
-//     "వణిజ",
-//     "విష్టి(భద్ర)",
-//     "బవ",
-//     "బాలవ",
-//     "కౌలవ",
-//     "తైతుల",
-//     "గరిజ",
-//     "వణిజ",
-//     "విష్టి(భద్ర)",
-//     "బవ",
-//     "బాలవ",
-//     "కౌలవ",
-//     "తైతుల",
-//     "గరిజ",
-//     "వణిజ",
-//     "విష్టి(భద్ర)",
-//     "బవ",
-//     "బాలవ",
-//     "కౌలవ",
-//     "తైతుల",
-//     "గరిజ",
-//     "వణిజ",
-//     "విష్టి(భద్ర)",
-//     "బవ",
-//     "బాలవ",
-//     "కౌలవ",
-//     "తైతుల",
-//     "గరిజ",
-//     "వణిజ",
-//     "విష్టి(భద్ర)",
-//     "శకున",
-//     "చతుష్పాద",
-//     "నాగ"
-// ];
-
 pub const ENGLISH_MONTH: [&str; 13] = [
     "",
     "జనవరి",
@@ -297,16 +191,6 @@ pub const ENGLISH_MONTH: [&str; 13] = [
     "నవంబర్",
     "డిసెంబర్"
 ];
-
-// pub const WEEKDAY_NAME: [&str; 7] =    [
-// "ఆది </br> (భాను) </br> Sun",
-// "సోమ </br> (ఇందు) </br> Mon",
-// "మంగళ </br> (భౌమ) </br> Tue",
-// "బుధ </br> (సౌమ్య) </br> Wed",
-// "గురు </br> (బృహస్పతి) </br> Thu",
-// "శుక్ర </br> (భృగు) </br> Fri",
-// "శని </br> (స్థిర) </br> Sat"
-//                      ];
                     
 pub const WEEKDAY_NAME: [&str; 7] =    [
 "<p>ఆది </p> <p> (భాను) </p> <p> Sun</p>",
@@ -317,44 +201,6 @@ pub const WEEKDAY_NAME: [&str; 7] =    [
 "<p>శుక్ర </p> <p> (భృగు) </p> <p> Fri</p>",
 "<p>శని </p> <p> (స్థిర) </p> <p> Sat</p>"
                      ];
-
-// const HORA_LORD: [&str; 8] = [
-//     "",
-//     "రవి",
-//     "చంద్ర",
-//     "కుజ",
-//     "బుధ",
-//     "గురు",
-//     "శుక్ర",
-//     "శని"
-// ];
-
-// const VARA_1: [&str; 8] = [
-//     "",
-//     "ఆది",
-//     "సోమ",
-//     "మంగళ",
-//     "బుధ",
-//     "గురు",
-//     "శుక్ర",
-//     "శని"
-// ];
-
-// const RASI: [&str; 13] = [
-//     "",
-//     "మేష",
-//     "వృషభ",
-//     "మిథున",
-//     "కర్కాటక",
-//     "సింహ",
-//     "కన్య",
-//     "తుల",
-//     "వృశ్చిక",
-//     "ధనుస్సు",
-//     "మకర",
-//     "కుంభ",
-//     "మీన"
-// ];
 
 fn format_time(time: &str) -> String {
     let parts: Vec<&str> = time.split(':').collect();
@@ -388,6 +234,26 @@ fn format_time(time: &str) -> String {
     formatted_time
 }
 
+fn format_time_no_prefix(time: &str) -> String {
+    let parts: Vec<&str> = time.split(':').collect();
+    let hours: u32 = parts.get(0).and_then(|s| s.parse().ok()).unwrap_or(0);
+    let minutes: u32 = parts.get(1).and_then(|s| s.parse().ok()).unwrap_or(0);
+    
+    let mut formatted_time = String::new();
+    
+    let display_hours = if hours <= 12 {
+        hours
+    } else if hours > 12 && hours <= 24 {
+        hours - 12
+    } else {
+        hours - 24
+    };
+    
+    formatted_time.push_str(&format!("{:02}:{:02}", display_hours, minutes));
+    
+    formatted_time
+}
+
 pub fn format_panchang_data(panchang: &PanchangData) -> CalendarData {
 
     let mut celldata = String::new();
@@ -407,10 +273,6 @@ pub fn format_panchang_data(panchang: &PanchangData) -> CalendarData {
         celldata.push_str(&format!("<b>{}</b> <br>", &panchang.dd));
 
     }
-
-    
-
-
 
     celldata.push_str(TITHI[panchang.tithi[0].id as usize].1);
     if let Some(end_time) = &panchang.tithi[0].end_time {
@@ -452,7 +314,7 @@ pub fn format_panchang_data(panchang: &PanchangData) -> CalendarData {
         if let Some(first) = panchang.varjya.get(0) {
             match (&first.start_time, &first.end_time) {
                 (Some(start), Some(end)) => {
-                    celldata.push_str(&format!("వర్జ్యం {} ల. {} వ.", format_time(start), format_time(end)));
+                    celldata.push_str(&format!("వర్జ్యం {} ల. {} వ.", format_time(start), format_time_no_prefix(end)));
                 }
                 (Some(start), None) => {
                     celldata.push_str(&format!("వర్జ్యం {} ల. ", format_time(start)));
@@ -468,7 +330,7 @@ pub fn format_panchang_data(panchang: &PanchangData) -> CalendarData {
             if let Some(second) = panchang.varjya.get(1) {
                 celldata.push_str(",  ");
                 if let (Some(start), Some(end)) = (&second.start_time, &second.end_time) {
-                    celldata.push_str(&format!("{} ల. {} వ.", format_time(start), format_time(end)));
+                    celldata.push_str(&format!("{} ల. {} వ.", format_time(start), format_time_no_prefix(end)));
                 } else if let Some(start) = &second.start_time {
                     celldata.push_str(&format!("{} ల. ", format_time(start)));
                 }
@@ -479,14 +341,14 @@ pub fn format_panchang_data(panchang: &PanchangData) -> CalendarData {
     // Durmuhurtha handling
     celldata.push_str(" దు. ");
     let durmuhurtha_parts: Vec<String> = panchang.durmuhurtha.iter()
-        .map(|d| format!("{} ల. {} వ.", format_time(&d.start_time), format_time(&d.end_time)))
+        .map(|d| format!("{} ల. {} వ.", format_time(&d.start_time), format_time_no_prefix(&d.end_time)))
         .collect();
     celldata.push_str(&durmuhurtha_parts.join(", "));
 
-    let suryodaya = format_time(&panchang.sun_rise);
+    let suryodaya = format_time_no_prefix(&panchang.sun_rise);
     celldata.push_str(&format!(" సూ. ఉ. {} ", suryodaya));
 
-    let suryastama = format_time(&panchang.sun_set);
+    let suryastama = format_time_no_prefix(&panchang.sun_set);
     celldata.push_str(&format!("సూ. అ. {}\n", suryastama));
 
     let header = 
